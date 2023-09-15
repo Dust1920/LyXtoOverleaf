@@ -1,0 +1,10 @@
+PWD c:\Users\david\Documents\LaTeX\amsart
+INPUT C:\Users\david\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT c:\Users\david\Documents\LaTeX\amsart\main_amsart.tex
+OUTPUT c:\Users\david\Documents\LaTeX\amsart\build\main_amsart.log
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\david\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm

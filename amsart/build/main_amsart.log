@@ -1,0 +1,50 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.8.31)  15 SEP 2023 13:03
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex
+(c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-08-11>
+(C:\Users\david\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Users\david\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+)
+
+! LaTeX Error: File `config/listofpackages.tex' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: tex)
+
+Enter file name: 
+c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex:4: Emergency stop.
+<read *> 
+         
+l.4 \input{config/listofpackages.tex}
+                                     ^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
+Here is how much of TeX's memory you used:
+ 233 strings out of 475502
+ 3131 string characters out of 5761813
+ 1916248 words of memory out of 5000000
+ 21593 multiletter control sequences out of 15000+600000
+ 558369 words of font info for 37 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 35i,0n,38p,166b,36s stack positions out of 10000i,1000n,20000p,200000b,200000s
+c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex:4:  ==> Fatal error occurred, no output PDF file produced!

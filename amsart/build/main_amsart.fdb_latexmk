@@ -1,0 +1,16 @@
+# Fdb version 4
+["pdflatex"] 1694808229 "c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex" "build/main_amsart.pdf" "main_amsart" 1694808230 2
+  "C:/Users/david/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1693509380 24120620 1e322cbbdf7e6c8fb3892e3fedb47ef3 ""
+  "C:/Users/david/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr10.tfm" 1136765053 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
+  "C:/Users/david/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1687174146 20144 fbcf51733730d8f1a62143512ff5b1fe ""
+  "C:/Users/david/AppData/Local/Programs/MiKTeX/tex/latex/base/size11.clo" 1687174146 8464 a4a9a859b7fd5b6c1450673c4d301348 ""
+  "build/config/listofpackages.tex" 0 -1 0 ""
+  "build/main_amsart.aux" 1694808229 34 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "c:/Users/david/Documents/LaTeX/amsart/main_amsart.tex" 1694808227 207 7670af7953a4d06307d89a6eb61d1b28 ""
+  "config/listofpackages.tex" 0 -1 0 ""
+  "main_amsart.tex" 1694808227 207 7670af7953a4d06307d89a6eb61d1b28 ""
+  (generated)
+  "build/main_amsart.aux"
+  "build/main_amsart.log"
+  "build/main_amsart.pdf"
+  (rewritten before read)

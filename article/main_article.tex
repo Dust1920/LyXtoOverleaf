@@ -1,0 +1,575 @@
+\documentclass[11pt, spanish]{amsart}
+
+\input{../config/listofpackages.tex}
+\input{../config/enviroments.tex}
+\input{../config/commands.tex}
+\input{../config/properties.tex}
+
+\begin{document}
+
+\title{Problema de optimización del costo descontado. Estabilidad con respecto
+a métricas débiles}
+\begin{abstract}
+Encontramos desigualdades para estimar la estabilidad (robustez) de
+un problema de optimización del costo descontado para procesos de
+control de Markov a tiempo discreto sobre un espacio de etapas de
+Borel. El costo de una etapa se permite ser no acotado. A diferencia
+de los resultados conocidos en esta área consideraremos una pertubación
+de las probabilidades de transición medidas por la métrica Kantorovich,
+cercanamente relacionado con la convergencia débil. Los resultados
+obtenidos hacen posible estimar la tasa de desaparición del indice
+de estabilidad cuando la aproximación se hace a través de medidas
+empiricas. 
+\end{abstract}
+
+\maketitle
+%
+
+\section{Motivación y establecimiento del problema}
+
+Consideremos un problema de control estándar para un proceso de Markov
+a tiempo discreto (Veasé, por ejemplo, Dynkin and Yushkevich 1997;
+Hernández-Lerma and Lasserre 1999). El costo total descontado es usado
+como criterio de optimización. 
+
+Suponga, además, que el proceso de control esta dado por las ecuaciones
+\begin{equation}
+x_{t}=F\left(x_{t-1},a_{t},\xi_{t}\right),t=1,2,\ldots,\label{eq:control_process}
+\end{equation}
+donde $F$ es una función medible dada. 
+
+\[
+x_{t-1},x_{t}\in X,a_{t}\in A\left(x_{t-1}\right)\subset A,t\geq1,
+\]
+
+y $\xi_{1},\xi_{2},\ldots$ es una sucesión de vectores aleatorios
+i.i.d que toman valores en el espacio de Borel $S$. Denotamos $\xi$
+como el vector aleatorio genérico para $\xi_{1},\xi_{2},\ldots$ El
+espacio de etapas $X$ y el espacio de acciones $A$ son espacios
+de Borel, y también para cada estado $x\in X$ el conjunto de acciones
+admisible $A\left(x\right)$ se asume compacto, mientras $\mathbb{K}\coloneqq\left\{ \left(x,a\right):x\in X,a\in A\left(x\right)\right\} $
+es medible en $X\times A$. 
+
+El costo por etapa $c\left(x,a\right),\left(x,a\right)\in\mathbb{K}$
+se asume medible. Sea $x\in X$ un estado inicial dado del proceso
+y $\pi$ una politica de control seleccionada (Vea, Dynkin and Yushkevich
+1997; Hernández-Lerma and Lasserre 1999 para las definiciones). Sea
+$\alpha\in\left(0,1\right)$ un factor de descuento y $E_{x}^{\pi}$
+denota el operador esperanza correspondiente a una probabilidad sobre
+las trayectorias del proceso cuando usamos la política $\pi$ con
+el estado inicial $x$. El costo total descontado es definido como
+siempre:
+
+\begin{equation}
+V\left(x,\pi\right)\coloneqq E_{x}^{\pi}\sum_{i=1}^{\infty}\alpha^{t-1}c\left(x_{t-1},a_{t}\right).\label{eq:total_discounted_cost}
+\end{equation}
+
+Luego vamos a imponer condiciones para garantizar la finitud del valor
+de la función:
+
+\begin{equation}
+V_{*}\left(x\right)\coloneqq\inf_{\pi\in\sqcap}V\left(x,\pi\right)\ x\in X,\label{eq:value_function}
+\end{equation}
+
+y la existencia de una política óptima $\pi_{*}$ tal que 
+
+\begin{equation}
+V\left(x,\pi_{*}\right)=V_{*}\left(x\right)\text{ for all }x\in X.\label{eq:optimal_policy}
+\end{equation}
+
+Aquí y luego $\sqcap$ denota la clase de todas las politicas de control. 
+
+Para declarar el problema de estabilidad (o robustez) estamos interesafdos
+en, asumamos que la distribución $D_{\xi}$ del vector aleatorio $\xi$
+es desconocido por el controlador, pero él/ella tiene alguna aproximación
+$D_{\widetilde{\xi}}$ para $D_{\xi}$ disponible. Aquí $\widetilde{\xi}$
+es un vector aleatorio genérico para una sucesión de vectores aleatorios
+$\widetilde{\xi}_{1},\widetilde{\xi}_{2},\ldots$ i.i.d con distribución
+común $D_{\widetilde{\xi}}$. Esta situación es común en las aplicaciones. 
+
+Todo esto significa que en lugar del proceso $x_{t}$ en (\ref{eq:control_process})
+el controlador trata con la aproximación $\widetilde{x}_{t}$ dada
+por la siguiente ecuación:
+
+\begin{equation}
+\widetilde{x_{t}}=F\left(\widetilde{x}_{t-1},\widetilde{a}_{t},\widetilde{\xi}_{t}\right),\ t=1,2,\ldots\label{eq:aprox_control_process}
+\end{equation}
+
+Asuamos que la única diferencia entre los dos modelos de control mostrados
+arriba (originados en (\ref{eq:control_process}) y en (\ref{eq:aprox_control_process}))
+radica en la diferente distribuciones de $\xi$ y $\widetilde{\xi}$,
+donde lo último esta a mano. De este modo en lugar de la inaccesible
+política óptima $\pi_{*}$ (satisfaciendo (\ref{eq:optimal_policy}))
+uno puede intentar usar la polítca óptima $\widetilde{\pi}_{*}$ para
+(\ref{eq:aprox_control_process}) como una aproximación para $\pi_{*}$.
+La política $\widetilde{\pi}_{*}$ (probando si existe) satisface
+las siguientes igualdades. 
+\begin{equation}
+\widetilde{V}\left(x,\widetilde{\pi}_{*}\right)=\widetilde{V}_{*}\left(x\right)\coloneqq\inf_{\pi\in\sqcap}\widetilde{V}\left(x,\pi\right),\text{ }x\in X,\label{eq:tilde_value_function}
+\end{equation}
+donde 
+\begin{equation}
+\widetilde{V}\left(x,\pi\right)\coloneqq E_{x}^{\pi}\sum_{t=1}^{\infty}\alpha^{t-1}c\left(\widetilde{x}_{t-1},\widetilde{a}_{t}\right).\label{eq:tilde_discounted_cost}
+\end{equation}
+
+La calidad de tal aproximación es medida por el costo adicional en
+exceso de $V_{*}$ en (\ref{eq:value_function}) es decir, por la
+cantidad 
+\begin{equation}
+\Delta\left(x\right)\coloneqq V\left(x,\widetilde{\pi}_{*}\right)-V\left(x,\pi\right)\geq0,\label{eq:stability_index}
+\end{equation}
+esto lo llamaremos indice de estabilidad (vea Gordienko y Salem 1998,
+Gordienko y Yushkevich 2003).
+
+Como en Gordienko y Salem (1998), Gordienko y Yushkevich 2003 el problema
+de estimación de la estabilidad se declara como la búsqueda por límites
+del siguiente tipo para cual nosnotros nos referiremos como desigualdades
+de estabilidad 
+\begin{equation}
+\Delta\left(x\right)\leq C\left(x\right)\psi\left[\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)\right],\text{ }x\in X,\label{eq:stability_inequalities}
+\end{equation}
+donde $\psi\left(s\right)\to0$ como $s\to0$, y $\mu$ es una métrica
+en el espacio de medidas de probabilidad. A pesar de que $D_{\xi}$
+se supone desconocida, limites superiores para $\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)$
+a veces pueden ser encontradas. Esto es, por ejemplo, el caso cuando
+$D_{\widetilde{\xi}}=\widehat{D}\left(\xi_{1},\xi_{2},\ldots,\xi_{n}\right)$
+es la distribución empírica y $\mu$ es una adecuada métrica ``débil''
+(es decir, relacioada con la convergencia débil de medidas).
+
+Los resultados en los articulos (Gordienko y Salem 1998,2000; Gordienko
+y Yushkevich 2003; Montes-de-Oca y Salem-Silva 2005; Montes-de-Oca
+et al. 2003) proporcionan desigualdades como en (\ref{eq:stability_inequalities})
+para $\psi\left(s\right)=s^{\gamma}\ \left(0<\gamma\leq1\right)$
+con las llamdas ``métricas fuertes'' tales como
+\begin{itemize}
+\item La métrica de la variación total.
+\[
+\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)\coloneqq\sup\left\{ \left|E\left[\varphi\left(\xi\right)-\varphi\left(\widetilde{\xi}\right)\right]\right|:\|\varphi\|_{\infty}\leq1\right\} 
+\]
+\item La métrica de la variación total w-ponderada.
+\[
+\mu_{w}\left(D_{\xi},D_{\widetilde{\xi}}\right)\coloneqq\sup\left\{ \left|E\left[\varphi\left(\xi\right)-\varphi\left(\widetilde{\xi}\right)\right]\right|:\sup_{s\in S}\dfrac{\left|\varphi\left(s\right)\right|}{w\left(s\right)}\leq1\right\} 
+\]
+\end{itemize}
+%
+Para resultados relacionados, vea también (Van Dijk 1988; Van Dijk
+and Sladky 1999). Desafortunadamente los resutados mencionados son
+inutiles, por ejemplo, cuando usamos la métrica empírica $\widehat{D}\left(\xi_{1},\xi_{2},\ldots,\xi_{n}\right)$
+como la aproximación conocida de $D_{\xi}$. El objetivo de esté artículo
+es presentar un conjunto de condiciones sobre los modelos de control
+bajo consideración que permita probar (\ref{eq:stability_inequalities})
+para $\psi\left(s\right)=s$ y cierta metríca de probabilidad débil
+$\mu$. Por ejemplo, El teorema (\ref{thm:Teo2}) en la siguiente
+sección asegura que bajo condiciones apropiadas 
+\begin{equation}
+\Delta\left(x\right)\leq K\left(x\right)\ell\left(D_{\xi},D_{\widetilde{\xi}}\right),\ x\in X,\label{eq:apropiate_stab_inequality}
+\end{equation}
+donde 
+\begin{equation}
+\ell\left(D_{\xi},D_{\widetilde{\xi}}\right)\coloneqq\sup\left\{ \left|E\left[\varphi\left(\xi\right)-\varphi\left(\widetilde{\xi}\right)\right]\right|:\varphi\text{ tal que }\left|\varphi\left(s\right)-\varphi\left(s'\right)\right|\leq r\left(s,s'\right),\ s,s'\in S\right\} ,\label{eq:Kantorovich_metric}
+\end{equation}
+y $r$ es la métrica en el espacio $S$. 
+
+Esta distancia es conocida como la métrica de Kantorovich. Una sucesión
+$\ell-$convergente de vectores aleatorios converge débilmente. Esto
+es bien conocido (vea, por ejemplo Rachev and Rüschendorf 1998) en
+el caso $S=\mathbb{R}^{k}$ que $\ell\left(D_{\xi},D_{\widetilde{\xi}}\right)\to0$
+si y solo si $\xi_{n}\Rightarrow\xi$ y $E\left|\xi_{n}\right|\to E\left|\xi\right|$.
+
+Cuando la métrica empírica $\widehat{D}\left(\xi_{1},\xi_{2},\ldots,\xi_{n}\right)$
+son usadas para aproximar la distribución $D_{\xi}$ sobre $\left(\mathbb{R}^{k},\mathcal{B}\left(\mathbb{R}^{k}\right)\right)$
+vamos a probar que 
+\begin{equation}
+E\Delta\left(x\right)\leq\widetilde{K}\left(x\right)n^{-\delta\left(k\right)}\ln n,\ n=2,3,\ldots,x\in X\label{eq:mean_stab_inequality}
+\end{equation}
+
+proporcionando que $Ee^{\gamma\left|\xi\right|}<\infty$ para álgun
+$\gamma>0$. En (\ref{eq:mean_stab_inequality}) el exponente $\delta\left(k\right)$
+se comporta como $1/k$. vale la pena mencionar que existen ejemplos
+de procesos de control de Markov (vea Gordienko y Salem 1998) con
+costo total descontado inestable finito con respecto a este criterio.
+Para tales procesos desigualdades como (\ref{eq:apropiate_stab_inequality})
+y (\ref{eq:mean_stab_inequality}) son imposibles.
+
+En la tercera sección de esté artículo daremos dos ejemplos de procesos
+de control de Markov para cuales las estimaciones (\ref{eq:apropiate_stab_inequality})
+y (\ref{eq:mean_stab_inequality}) son válidas. Uno de ellos es un
+modelo de inventario o un modelo de cola con tasa de servicio controlada
+por el sistema. El otro es el modelo de optimización de cartera en
+tiempo discreto. (Korn and Korn 2001)
+
+\section{Suposiciones y resultados\label{sec:Suposiciones-y-resultados}}
+
+Recordemos, $X$ como el espacio de etapas, el espacio de acciones
+$A$ y el espacio de ruido $S$ (El espacio donde las perturbaciones
+aleatorias $\xi_{n}$ toman valores) son todos los subconjuntos de
+sus espacios métricos respectivos, ellos mismos son espacios métricos
+con sus correspondientes métricas: $\left(X,\rho\right),\left(A,d\right),\left(S,r\right)$. 
+
+La distancia de Hausdorff entre subconjuntos compactos $B,C$ de $A$
+esta dado por la expresión 
+
+\[
+h\left(B,C\right)\coloneqq\max_{x\in B}\left\{ \sup_{x\in B}d\left(x,C\right),\sup_{y\in C}d\left(y,B\right)\right\} .
+\]
+
+El primer conjunto de suposiciones técnicas es prestada de Hernández-Lerna
+y Lasserre $\left(1999\right)$ y es necesarian para asegurar la existencia
+de minimizadores en las ecuaciones de optimalidad correspondientes.
+\begin{assumption}
+.\label{assu:Sup1}
+
+1. El conjutno $A\left(x\right)$ es compacto para cada $x\in X$
+y el mapeo de valores establecidos $x\mapsto A\left(x\right)$ es
+semicontinua superior con respecto a la métrica de Haussdorf.
+
+2. La función de costo $c:\mathbb{K}\to\mathbb{R}$ es semicontinua
+inferior. 
+
+3. Para cada función continua acotada $u:X\to\mathbb{R}$ las funciones
+\[
+u'\left(x,a\right)\coloneqq Eu\left[F\left(x,a,\xi\right)\right],
+\]
+y 
+\[
+u''\left(x,a\right)\coloneqq Eu\left[F\left(x,a,\xi\right)\right]
+\]
+son continuas en $\mathbb{K}$. 
+\end{assumption}
+%
+El segundo conjunto de condiciones es usado para proporcionar la existencia
+de las soluciones para la ecuación de optimalidad y para asegurar
+algunas propiedades útiles de esa solución. (Vea Gordienko and Salem
+1998; Hernández Lerma and Lasserre 1999 y la demostración del Teorema
+$1$ en la sección $4$)
+\begin{assumption}
+\label{assu:Sup2}Existe una función $W:X\to[1,\infty)$ tal que
+
+1. 
+\begin{equation}
+\left|c\left(x,a\right)\right|\leq W\left(x\right),\text{ para cada }\left(x,a\right)\in\mathbb{K}\label{eq:c_w_bounded}
+\end{equation}
+
+2. Exise una constante $\beta\in\left(\alpha,1\right)$ tal que 
+\begin{align}
+EW\left[F\left(x,a,\xi\right)\right] & \leq\dfrac{\beta}{\alpha}W\left(x\right),\label{eq:W_xi}\\
+EW\left[F\left(x,a,\widetilde{\xi}\right)\right] & \leq\dfrac{\beta}{\alpha}W\left(x\right),\label{eq:w_sxi}
+\end{align}
+para cada $\left(x,a\right)\in\mathbb{K}$. 
+
+3. Las funciones 
+
+\[
+w'\left(x,a\right)\coloneqq EW\left[F\left(x,a,\xi\right)\right]
+\]
+y 
+\[
+w''\left(x,a\right)\coloneqq EW\left[F\left(x,a,\widetilde{\xi}\right)\right]
+\]
+
+son continuas en $\mathbb{K}$. 
+\end{assumption}
+%
+\begin{rem}
+Es conocido (vea Hernández-Lerna y Lasserre 1999; Van Nunen and Wessels
+1978) que las siguientes condiciones sonn suficientes para (\ref{eq:c_w_bounded})-(\ref{eq:w_sxi}).
+
+Existe uan función continua $W_{1}:X\to[1,\infty)$ y constantes $\gamma,\overline{c}$
+y $b$ tales que 
+\end{rem}
+\begin{itemize}
+\item $\alpha\gamma<1$
+\item .
+\begin{equation}
+\left|c\left(x,a\right)\right|\leq\overline{c}W_{1}\left(x\right),\ (x,a)\in\mathbb{K}\label{eq:w_1_c_bounded}
+\end{equation}
+\item .
+\begin{equation}
+EW_{1}\left[F\left(x,a,\xi\right)\right]\leq\gamma W_{1}\left(x\right)+b\label{eq:Lyapu1}
+\end{equation}
+\item .
+\begin{equation}
+EW_{1}\left[F\left(x,a,\widetilde{\xi}\right)\right]\leq\gamma W_{1}\left(x\right)+b.\ \left(x,a\right)\in\mathbb{K}\label{eq:Lyapu2}
+\end{equation}
+\end{itemize}
+%
+Denotaremos por $B_{w}$ el espacio de Banach de todas las funciones
+medibles $u:X\to\mathbb{R}$ para las cuales 
+\[
+\|u\|_{w}=\sup_{x\in X}\dfrac{\left|u\left(x\right)\right|}{W\left(x\right)}
+\]
+ es finita. 
+
+De Hernández-Lerma y Lasserre (1999), p. 47, Teorema 8.3.6, sigue
+que bajo las suposiciones (\ref{assu:Sup1}) y (\ref{assu:Sup2})
+para ambos procesos de control (\ref{eq:control_process}) y (\ref{eq:aprox_control_process})
+existe su política estacionaria óptima respectiva. 
+\begin{align*}
+\pi_{*} & =\left\{ f_{*},f_{*},\ldots\right\} ,a_{t}=f_{*}\left(x_{t-1}\right),t\geq1;\\
+\widetilde{\pi}_{*} & =\left\{ \widetilde{f}_{*},\widetilde{f}_{*},\ldots\right\} ,a_{t}=\widetilde{f}_{*}(\widetilde{x}_{t-1}),t\ge1;
+\end{align*}
+con su valores de función $V_{*}\left(x\right)=V\left(x,\pi_{*}\right)\in B_{w}$
+y $\widetilde{V_{*}}\left(x\right)=\tilde{V}\left(x,\widetilde{\pi}_{*}\right)\in B_{w}$
+semicontinua inferior correspondiente, y sus esperanzas $EV_{*}\left[F\left(x,a,\xi\right)\right],EV_{*}\left[F\left(x,a,\widetilde{\xi}\right)\right]$
+existe para toda $\left(x,a\right)\in\mathbb{K}$. Denotamos por $M$
+al conjunto de todas las distribuciones de $\xi$ y $\widetilde{\xi}$
+para la cual las esperanzas de arriba existen para toda $\left(x,a\right)\in\mathbb{K}$.
+Definiremos la siguiente pseudo-métrica $\mu$ en $M$. 
+\begin{equation}
+\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)\coloneqq\sup\left\{ \left|EV_{*}\left[F\left(x,a,\xi\right)\right]-EV_{*}\left[F\left(x,a,\widetilde{\xi}\right)\right]\right|:\left(x,a\right)\in\mathbb{K}\right\} \label{eq:pseudo-metric}
+\end{equation}
+
+Esta pseudo-métrica toma valores en $[0,\infty]$. También $\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)$
+podría ser cero para distribuciones no idénticas $D_{\xi},D_{\widetilde{\xi}}$.
+\begin{thm}
+\label{thm:Teo1} Bajo las suposiciones (\ref{assu:Sup1}) y (\ref{assu:Sup2})
+tenemos: 
+\begin{equation}
+\Delta\left(x\right)\leq2\alpha\left[\left(1-\alpha\right)^{-1}+\alpha\left(1-\beta\right)^{-2}W\left(x\right)\right]\mu\left(D_{\xi},D_{\widetilde{\xi}}\right),x\in X.\label{eq:Teo1}
+\end{equation}
+\end{thm}
+%
+\begin{proof}
+Simplificando la notación de sección (\ref{sec:Suposiciones-y-resultados})
+sea $\pi=\left\{ f,f,\ldots\right\} ,\widetilde{\pi}=\left\{ \widetilde{f},\widetilde{f},\ldots\right\} $
+las políticas estacionarias óptimas para los procesos (\ref{eq:control_process})
+y (\ref{eq:aprox_control_process}), respectivamente, y $V_{*},\widetilde{V}_{*}$
+sean las funciones de valor correspondientes. (Vea (\ref{eq:value_function})
+y (\ref{eq:tilde_value_function})). 
+
+Entonces (vea Hernández-Lerma y Lasserre 1999, Cap. 8) $V_{*},\widetilde{V}_{*}$
+y $f,\widetilde{f}$ satisfacen las siguientes ecuaciones de optimalidad.
+(Además, $V_{*}$ y $\widetilde{V}_{*}$ son las únicas soluciones
+para estas ecuaciones)
+
+\begin{align}
+V_{*}\left(x\right) & =\inf_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\alpha EV_{*}\left[F\left(x,a,\xi\right)\right]\right\} \nonumber \\
+ & =\inf_{a\in A\left(x\right)}\left\{ c\left(x,f\left(x\right)\right)+\alpha EV_{*}\left[F\left(x,f\left(x\right),\xi\right)\right]\right\} \label{eq:proof1vstar}\\
+\tilde{V}_{*}\left(x\right) & =\inf_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+\alpha E\widetilde{V}_{*}\left[F\left(x,a,\widetilde{\xi}\right)\right]\right\} \nonumber \\
+ & =\inf_{a\in A\left(x\right)}\left\{ c\left(x,\widetilde{f}\left(x\right)\right)+\alpha E\widetilde{V}_{*}\left[F\left(x,\widetilde{f}\left(x\right),\widetilde{\xi}\right)\right]\right\} \label{eq:proof1tilde_vstar}
+\end{align}
+
+Para $\left(x,a\right)\in\mathbb{K}$ definimos 
+\begin{align}
+H\left(x,a\right) & \coloneqq c\left(x,a\right)+\alpha EV_{*}\left[F\left(x,a,\xi\right)\right]\nonumber \\
+\widetilde{H}\left(x,a\right) & \coloneqq c\left(x,a\right)+\alpha E\widetilde{V}_{*}\left[F\left(x,a,\widetilde{\xi}\right)\right]\label{eq:Hxa}
+\end{align}
+
+y sea $\Gamma_{t}=\left\{ x,a_{1},x_{1},a_{2},\ldots,x_{t-1},a_{t}\right\} ,\left(t\geq1\right)$
+la parte de una trayectoria del proceso (\ref{eq:control_process})
+bajo la política de control $\widetilde{\pi}=\left\{ \widetilde{f},\widetilde{f},\ldots\right\} $,
+por la propiedad de Markov del proceso. 
+\begin{align*}
+\zeta_{t} & \coloneqq E^{\widetilde{\pi}}\left[\alpha V_{*}\left(x_{t}\right)\mid\Gamma_{t}\right]\\
+ & =H\left(x_{t-1},a_{t}\right)-c\left(x_{t-1},a_{t}\right)-\inf_{a\in A\left(x_{t-1}\right)}H\left(x_{t-1},a\right)+\inf_{a\in A\left(x_{t-1}\right)}H\left(x_{t-1},a\right).
+\end{align*}
+En vista de (\ref{eq:proof1vstar}) y (\ref{eq:Hxa}) obtenemos: 
+\begin{align*}
+\zeta_{t} & =H\left(x_{t-1},a_{t}\right)-\inf_{a\in A\left(x_{t-1}\right)}H\left(x_{t-1},a\right)-c\left(x_{t-1},a_{t}\right)+V_{*}\left(x_{t-1}\right)\\
+ & =\Lambda_{t}-c\left(x_{t-1},a_{t}\right)+V_{*}\left(x_{t-1}\right),
+\end{align*}
+donde 
+\begin{equation}
+\Lambda_{t}\coloneqq H\left(x_{t-1},a_{t}\right)-\inf_{a\in A\left(x_{t-1}\right)}H\left(x_{t-1},a\right).\label{eq:Lambda_t}
+\end{equation}
+
+De este modo 
+\begin{align}
+E_{x}^{\widetilde{\pi}}\alpha V_{*}\left(x_{t}\right) & =E_{x}^{\widetilde{\pi}}\zeta_{t}\nonumber \\
+ & =E_{x}^{\widetilde{\pi}}\Lambda_{t}-E_{x}^{\widetilde{\pi}}c\left(x_{t-1},a_{t}\right)+E_{x}^{\widetilde{\pi}}V_{*}\left(x_{t-1}\right)\label{eq:mean_lambda}
+\end{align}
+
+Sumando (\ref{eq:mean_lambda}) con los pesos $\alpha^{t-1}$. 
+\[
+\sum_{i=1}^{n}\alpha^{t-1}E_{x}^{\widetilde{\pi}}c\left(x_{t-1},a_{t}\right)=\sum_{i=1}^{n}\alpha^{t-1}\left[E_{x}^{\widetilde{\pi}}V_{*}\left(x_{t-1}\right)-E_{x}^{\widetilde{\pi}}\alpha V_{*}\left(x_{t}\right)\right]+\sum_{i=1}^{n}\alpha^{t-1}E_{x}^{\widetilde{\pi}}\Lambda_{t},
+\]
+ o 
+\begin{equation}
+\sum_{i=1}^{n}\alpha^{t-1}E_{x}^{\widetilde{\pi}}c\left(x_{t-1},a_{t}\right)-V_{*}\left(x\right)=-\alpha^{n}E_{x}^{\widetilde{\pi}}V_{*}\left(x_{t-1}\right)+\sum_{i=1}^{n}\alpha^{t-1}E_{x}^{\widetilde{\pi}}\Lambda_{t}.\label{eq:sum_or_sum}
+\end{equation}
+
+Desde $V^{*}\in B_{w}$ de la suposición (\ref{assu:Sup2}) se sigue
+(vea Hernández-Lerma y Lasserre 1999, p. 52) que ${\displaystyle \lim_{n\to\infty}\alpha^{n}E_{x}^{\widetilde{\pi}}V_{*}\left(x_{n}\right)=0}$
+
+Por lo tanto, pasando el límite con $n\to\infty$ en (\ref{eq:sum_or_sum})
+obtenemos (vea (\ref{eq:stability_index}))
+
+\begin{equation}
+\Delta\left(x\right)=\sum_{i=1}^{\infty}\alpha^{t-1}E_{x}^{\widetilde{\pi}}c\left(x_{t-1},a_{t}\right)-V_{*}\left(x\right)=\sum_{i=1}^{\infty}\alpha^{t-1}E_{x}^{\widetilde{\pi}}\Lambda_{t}\label{eq:Delta_infinite}
+\end{equation}
+
+Por la definición de $\Lambda_{t}$ en (\ref{eq:Lambda_t}) y por
+(\ref{eq:proof1tilde_vstar}) obtenemos lo siguiente 
+\[
+\Lambda_{t}=H\left(x_{t-1},a_{t}\right)-\widetilde{H}\left(x_{t-1},a_{t}\right)+\inf_{a\in A\left(x_{t-1}\right)}\widetilde{H}\left(x_{t-1},a\right)-\inf_{a\in A\left(x_{t-1}\right)}H\left(x_{t-1},a\right),
+\]
+
+De este modo, 
+\begin{align}
+\left|\Lambda_{t}\right| & \leq2\sup_{a\in A\left(x_{t-1}\right)}\left|H\left(x_{t-1},a\right)-\widetilde{H}\left(x_{t-1},a\right)\right|\nonumber \\
+ & \leq2\alpha\sup_{a\in A\left(x_{t-1}\right)}\left|EV_{*}\left[F\left(x_{t-1},a,\xi\right)\right]-E\widetilde{V}_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\right|,\label{eq:Lambda_inequality}
+\end{align}
+
+donde la esperanza del último término es tomada con respecto a los
+vectores aleatorios $\xi,\widetilde{\xi}$ con $x_{t-1}$ fijo. De
+la última desigualdad obtenemos 
+\begin{align}
+\left|\Lambda_{t}\right| & \leq2\alpha\sup_{a\in A\left(x_{t-1}\right)}\left|EV_{*}\left[F\left(x_{t-1},a,\xi\right)\right]-EV_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\right|\label{eq:lamba_trick}\\
+ & +2\alpha\sup_{a\in A\left(x_{t-1}\right)}\left|EV_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]-E\widetilde{V}_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\right|\nonumber 
+\end{align}
+
+En vista de (\ref{eq:pseudo-metric}) el primer sumando del lado derecho
+de (\ref{eq:lamba_trick}) esta acotado por $2\alpha\mu$, donde denotamos
+$\mu\coloneqq\mu\left(D_{\xi},D_{\widetilde{\xi}}\right)$. El segundo
+sumando es menor que 
+\begin{align}
+ & 2\alpha\sup_{a\in A\left(x_{t-1}\right)}E\left[\dfrac{W\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]}{W\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]}\left|V_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]-\widetilde{V}_{*}\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\right|\right]\label{eq:trick_w}\\
+ & \leq2\alpha\|V_{*}-\widetilde{V}_{*}\|_{w}\sup_{a\in A\left(x_{t-1}\right)}EW\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\nonumber 
+\end{align}
+
+Necesitamos acotar el promedio del último factor de (\ref{eq:trick_w}).
+Usando la notación $E_{\widetilde{\xi}}$ en lugar de $E$ y la desigualdad
+(\ref{eq:w_sxi}) obtenemos para cada $x_{t-1}$ 
+\begin{align*}
+EW\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right] & \equiv E_{\widetilde{\xi}}W\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\leq\dfrac{\beta}{\alpha}E_{x}^{\widetilde{\pi}}W\left(x_{t-1}\right)\\
+ & =\dfrac{\beta}{\alpha}E_{x}^{\widetilde{\pi}}W\left[F\left(x_{t-2},a_{t-1},\xi_{t-1}\right)\right]\\
+ & =\dfrac{\beta}{\alpha}E_{x}^{\widetilde{\pi}}\left\{ E_{x}^{\widetilde{\pi}}W\left[F\left(x_{t-2},a_{t-1},\xi_{t-1}\right)\right]\mid\Gamma_{t-1}\right\} \\
+ & \leq\left(\dfrac{\beta}{\alpha}\right)^{2}E_{x}^{\widetilde{\pi}}\left\{ W\left(x_{t-2}\right)\mid\Gamma_{t-1}\right\} \\
+ & =\left(\dfrac{\beta}{\alpha}\right)^{2}E_{x}^{\widetilde{\pi}}\left\{ W\left(x_{t-3},a_{t-2},\xi_{t-2}\right)\mid\Gamma_{t-1}\right\} \\
+ & =\left(\dfrac{\beta}{\alpha}\right)^{2}E_{x}^{\widetilde{\pi}}W\left(x_{t-3},a_{t-2},\xi_{t-2}\right).
+\end{align*}
+
+Procediendo de forma inductiva obtenemos las desigualdades 
+\begin{equation}
+E_{x}^{\widetilde{\pi}}\sup_{a\in A\left(x_{t-1}\right)}E_{\widetilde{\xi}}W\left[F\left(x_{t-1},a,\widetilde{\xi}\right)\right]\leq\left(\dfrac{\beta}{\alpha}\right)^{t-1}W\left(x\right),\ t=1,2,\ldots\label{eq:super_inequality}
+\end{equation}
+
+En Gordienko y Salem (1998), Hernández-Lerma and Lasserre (1999) fue
+probaod que los siguientes operadores. 
+\begin{align*}
+Tu\left(x\right) & \coloneqq\inf_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+aEu\left[F\left(x,a,\xi\right)\right]\right\} \\
+\widetilde{T}u\left(x\right) & \coloneqq\inf_{a\in A\left(x\right)}\left\{ c\left(x,a\right)+aEu\left[F\left(x,a,\widetilde{\xi}\right)\right]\right\} ,
+\end{align*}
+son contractivas en $B_{w}$ con módulo $\beta$. Como $V_{*}$ y
+$\widetilde{V}_{*}$ son puntos fijos para esos operadores obtenemos
+\[
+\|V_{*}-\widetilde{V}_{*}\|_{w}=\|TV_{*}-\widetilde{T}V_{*}\|_{w}+\|\widetilde{T}V_{*}-\widetilde{T}\widetilde{V}_{*}\|_{w},
+\]
+ esto implica que
+
+\begin{align}
+\|V_{*}-\widetilde{V}_{*}\|_{w} & \leq\dfrac{1}{1-\beta}\|TV_{*}-\widetilde{T}V_{*}\|_{w}\nonumber \\
+ & \leq\dfrac{\alpha}{1-\beta}\sup_{x\in X}W^{-1}\left(x\right)\label{eq:Vnorm}\\
+ & \sup_{a\in A\left(x\right)}\left|EV_{*}\left[F\left(x,a,\xi\right)\right]-EV_{*}\left[F\left(x,a,\widetilde{\xi}\right)\right]\right|\leq\dfrac{\alpha}{1-\beta}\mu\nonumber 
+\end{align}
+
+Combinando las desigualdades \ref{eq:lamba_trick}-\ref{eq:Vnorm}
+obtenemos 
+
+\[
+E_{x}^{\widetilde{\pi}}\left|\Lambda_{t}\right|\leq2\alpha\left[1+\dfrac{\alpha}{1-\beta}\left(\dfrac{\beta}{\alpha}\right)^{t-1}W\left(x\right)\right]\mu
+\]
+
+y finalmente en vista de \ref{eq:Delta_infinite} recibimos la desigualdad
+\ref{eq:Teo1}.
+\end{proof}
+%
+Nuestro siguiente paso is acotar la pseudo-métrica $\mu$ por un métrica
+de probabilidad débil relevante.
+\begin{assumption}
+\label{assu:Sup3}Existe una constante $L_{0}$ y una función medible
+$L_{1}:S\to[0,\infty)$ tal que:
+
+1. $\left|c\left(x,a\right)-c\left(y,a\right)\right|\leq L\rho\left(x,y\right)\ \text{ for all }\left(x,a\right),\left(y,a\right)\in\mathbb{K}$.
+
+2. $\rho\left[F\left(x,a,\xi\right),F\left(y,a,\xi\right)\right]\leq L_{1}\left(\xi\right)\rho\left(x,y\right)\text{ }\text{for all }\left(x,a\right),\left(y,a\right)\in\mathbb{K}$
+y $L_{1}\coloneqq EL_{1}\left(\xi\right)\leq1$.
+
+$3.$ $A$ es compacto y $A\left(x\right)=A$ para todo $x\in X$. 
+\end{assumption}
+\begin{thm}
+\label{thm:Teo2} Bajo las suposiciones $1-3$ obtenemos 
+\begin{equation}
+\Delta\left(x\right)\leq2\alpha\dfrac{L_{0}}{1-\alpha L_{1}}\left[\dfrac{1}{1-\alpha}+\dfrac{\alpha}{\left(1-\beta\right)^{2}}W\left(x\right)\right]\ell\left(D_{\xi},D_{\widetilde{\xi}}\right),\ x\in X.\label{eq:Teo2}
+\end{equation}
+\end{thm}
+%
+\begin{proof}
+En vista de la definición (\ref{eq:w_sxi}) de la métrica de Kantorovich
+$\ell$ y la definición (\ref{eq:pseudo-metric}) de la métrica $\mu$,
+la desigualdad (\ref{thm:Teo2}) seguiría de (\ref{eq:Teo1}) si estableemos
+que para cada $\left(x,a\right)\in\mathbb{K}$ la función 
+\[
+\varphi\left(\cdot\right)\coloneqq V_{*}\left[F\left(x,a,\cdot\right)\right]:S\to\mathbb{R},
+\]
+satisface la condición de Lipschitz con constante $\dfrac{L_{0}}{1+\alpha L_{1}}$
+(vea (\ref{assu:Sup3}) para la definción de $L_{0}$ y $L_{1}$).
+
+Sea $V_{0}\coloneqq0$ y para cada $n=1,2,\ldots$ 
+\[
+V_{n}\left(x\right)\coloneqq\inf_{a\in A}\left\{ c\left(x,a\right)+\alpha EV_{n-1}\left[F\left(x,a,\xi\right)\right]\right\} ,\ x\in X
+\]
+
+Como esta mostrado en Hernández-Lerma y Lasserre $\left(1999\right)$,
+p. 47 para cada $x\in X$ $V_{n}\left(x\right)\to V_{*}\left(x\right)$
+cuando $n\to\infty$. Por la suposición (\ref{assu:Sup3}), punto
+1 y $3$ obtenemos que $V_{1}\in Lip\left(L_{0}\right)$ (Es decir,
+satisface la condición de Lipschitz con la constante $L_{0}$). Aplicando
+la suposición 3 punto 2 obtenemos 
+\begin{align*}
+\left|V_{2}\left(x\right)-V_{2}\left(y\right)\right| & \leq\sup_{a\in A}\left\{ \left|c\left(x,a\right)-c\left(y,a\right)\right|+\alpha\left|EV_{1}\left[F\left(x,a,\xi\right)\right]-EV_{1}\left[F\left(y,a,\xi\right)\right]\right|\right\} \\
+ & \leq L_{0}\rho\left(x,y\right)+\alpha\sup_{a\in A}EL_{0}\rho\left[F\left(x,a,\xi\right),F\left(y,a,\xi\right)\right]\\
+ & \leq L_{0}\left(1+\alpha L_{1}\right)\rho\left(x,y\right),\ x,y\in X
+\end{align*}
+
+Por indución establecemos que $V_{n}\in Lip\left(\dfrac{L_{0}}{1-\alpha L_{1}}\right),n=1,2,\ldots$
+y de este modo 
+\[
+V_{*}\in Lip\left(\dfrac{L_{0}}{1-\alpha L_{1}}\right)
+\]
+\end{proof}
+\begin{rem}
+Para $S=\mathbb{R}$. 
+\[
+\ell\left(D_{\xi},D_{\widetilde{\xi}}\right)=\int_{-\infty}^{\infty}\left|F_{\xi}\left(x\right)-F_{\widetilde{\xi}}\left(x\right)\right|\mathrm{d}x,
+\]
+donde $F_{\xi},F_{\widetilde{\xi}}$ son las funciones de distribución
+correspondientes (vea Rachev y Rüschendorf 1998). 
+
+Consideremos la aproximación de $D_{\widetilde{\xi}}$ por medidas
+empíricas. Sea $n\geq1$ fijo, $\xi_{1},\xi_{2},\ldots,\xi_{n}$ vectores
+aleatorios i.i.d con distribución $D_{\xi}$ y 
+\[
+\widehat{D}_{n}=\widehat{D}\left(\xi_{1},\ldots,\xi_{n}\right)\coloneqq\dfrac{1}{n}\sum_{i=1}^{n}\delta_{\xi_{i}},
+\]
+sea la medida empírica (esto es una medida aleatoria en $\left(S,\mathcal{B}\left(S\right)\right)$).
+Denotamos por $\widetilde{\xi}^{\left(n\right)}$ un vector aleatorio
+con distribución $\widehat{D}_{n}$ y sea $\widetilde{\xi}_{t}^{\left(n\right)},t=1,2,\ldots$
+copias independientes de $\widetilde{\xi}^{\left(n\right)}$.
+
+Supongamos que $\widetilde{\xi}^{\left(n\right)}\equiv\widetilde{\xi}_{t},t=1,2,\ldots$
+en el proceso de aproximación (\ref{eq:aprox_control_process}). Entonces
+el indice de estabilidad (\ref{eq:stability_index}) es aleatorio.
+Para evitar problemas de medibilidad la esperanza tomada en (\ref{eq:Corolario})
+y (\ref{eq:Prop1}) a continuación puede tratarse como una integral
+externa como se define en Van Der Vaart y Wellner (1996).
+\end{rem}
+%
+\begin{cor}
+\label{cor:Corolario1}
+
+\begin{equation}
+E\Delta\left(x\right)\leq K\left(x\right)n^{-\delta\left(\epsilon,k\right)}\ln n,\ n=2,3,\ldots,x\in X\label{eq:Corolario}
+\end{equation}
+\end{cor}
+%
+\begin{prop}
+s
+
+\begin{equation}
+E\sup_{\varphi\in Lip}\left|E\varphi\left(\xi\right)-\dfrac{1}{n}\sum_{i=1}^{n}\varphi\left(\xi_{i}\right)\right|\leq Mn^{-\delta\left(\epsilon,k\right)}\ln\left(n\right),\ n=2,3,\ldots,\label{eq:Prop1}
+\end{equation}
+\end{prop}
+
+
+\end{document}
